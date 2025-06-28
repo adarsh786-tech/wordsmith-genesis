@@ -34,3 +34,4 @@ bun.lockb
 
 # TypeScript
 *.tsbuildinfo
+.gitignore
