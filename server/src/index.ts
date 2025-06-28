@@ -1,8 +1,9 @@
-import express from 'express';
-import dotenv from 'dotenv';
-import cors from "cors"
-import  {GoogleGenAI}  from '@google/genai';
-import { SYSTEM_PROMPT } from './prompt';
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import express from "express";
+import dotenv from "dotenv";
+import cors from "cors";
+import { GoogleGenAI } from "@google/genai";
+import { SYSTEM_PROMPT } from "./prompt";
 dotenv.config();
 
 const app = express();
@@ -13,16 +14,15 @@ app.use(express.json());
 
 app.use(cors());
 
-app.get('/', (_, res) => {
-  res.send('Hello from Express + TypeScript server!');
+app.get("/", (_, res) => {
+  res.send("Hello from Express + TypeScript server!");
 });
 
 app.get("/greetings", (_, res) => {
-  res.status(200).send(`Hello there....greetings`)
-})
+  res.status(200).send(`Hello there....greetings`);
+});
 
-
-app.post("/generate-content", async (req:any, res:any) => {
+app.post("/generate-content", async (req: any, res: any) => {
   const { prompt } = req.body;
 
   if (!prompt) {
@@ -46,7 +46,8 @@ app.post("/generate-content", async (req:any, res:any) => {
       },
     });
 
-    const resultText = response.candidates?.[0]?.content?.parts?.[0]?.text ?? "";
+    const resultText =
+      response.candidates?.[0]?.content?.parts?.[0]?.text ?? "";
     res.json({ content: resultText });
   } catch (error) {
     console.error("Generation error:", error);
@@ -54,8 +55,6 @@ app.post("/generate-content", async (req:any, res:any) => {
   }
 });
 
-
 app.listen(port, () => {
   console.log(`Server is running on http://localhost:${port}`);
-}); 
-
+});
